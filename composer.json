@@ -1,0 +1,12 @@
+{
+    "name": "wouerner/fila-rabbitmq",
+    "authors": [
+        {
+            "name": "wouerner",
+            "email": "wouerner@protonmail.com"
+        }
+    ],
+    "require": {
+        "php-amqplib/php-amqplib": ">=2.6.1" 
+    }
+}
