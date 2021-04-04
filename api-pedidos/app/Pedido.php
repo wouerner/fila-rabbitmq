@@ -5,18 +5,28 @@ class Pedido {
     public function __construct(){
         $produto = $_POST['produto'];
 
-        $produto = ['id' => rand(), 'produto' => $produto];
+        // database
+        $pdo = new \PDO('sqlite:' . __DIR__ . '/../db/pedidos.db');
+
+        $sql = "INSERT INTO Pedidos (produtos) VALUES (?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$produto]);
+
+        $produto = ['id' => $pdo->lastInsertId(), 'produto' => $produto];
 
         $produto = json_encode($produto);
 
         // rabbit
-        include '../send.php';
+        new \App\Rabbitmq;
 
+        $this->returnJson($produto);
+    }
+
+    private function returnJson($data){
         header('Content-type: application/json');
         header('Access-Control-Allow-Origin: *');
 
-        echo $produto;
+        echo $data;
         die;
     }
-
 }
