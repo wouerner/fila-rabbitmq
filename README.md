@@ -1,8 +1,26 @@
 # fila-rabbitmq
 
-docker
-docker run -d --hostname my-rabbit --name some-rabbit -p 8080:15672 -p 5672:5672 rabbitmq:management-alpine
+Iniciar o projeto  
+`
+docker-compose up 
+`
 
-http://localhost:9090/  
+links:  
 
-http://localhost:9191/  
+* http://localhost:9090/pedido.html
+* http://localhost:8080/#/
+
+### Estruturas
+
+Exchanges:
+* pedido_exchange
+
+Queue:
+* distributor_queue
+* email_queue
+
+Porque?
+
+* grande volume de informações.
+* queda dos serviços
+* robustez 
