@@ -7,7 +7,19 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 /**
  * Inicia a conexão
  */
-$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+while(1) {
+    try {
+        $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
+        /* $connection = new AMQPStreamConnection(RB_HOST, RB_PORT, RB_USER, RB_PASS); */
+        break;
+    } catch(\Exception $e) {
+        var_dump($e->getMessage());
+        sleep(2);
+        continue;
+    }
+}
+
+
 $channel = $connection->channel();
 
 $channel->exchange_declare('pedido_exchange', 'fanout', false, $durable = true, false);
