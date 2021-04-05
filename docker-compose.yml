@@ -10,3 +10,60 @@ services:
     volumes:
       - ./docker/rabbitmq/data/:/var/lib/rabbitmq/
       - ./docker/rabbitmq/log/:/var/log/rabbitmq
+
+  distributor-service:
+    image: php:7.4-cli 
+    container_name: 'distributor-service'
+    working_dir: /app
+    volumes:
+      - ./distributor-service/:/app
+    command: php -f receivePedido.php   
+    depends_on:
+      - rabbitmq
+
+  payment-service:
+    image: php:7.4-cli 
+    container_name: 'payment-service'
+    working_dir: /app
+    volumes:
+      - ./payment-service/:/app
+    command: php -f receivePedido.php   
+    depends_on:
+      - rabbitmq
+
+  email-service:
+    image: php:7.4-cli 
+    container_name: 'email-service'
+    working_dir: /app
+    volumes:
+      - ./email-service/:/app
+    command: php -f receivePedido.php   
+    depends_on:
+      - rabbitmq
+
+  web-app:
+    image: php:7.4-cli 
+    container_name: 'web-app'
+    working_dir: /app
+    volumes:
+      - ./frontend/:/app
+    command: php -S 0.0.0.0:9090   
+    ports:
+      - 9090:9090
+    depends_on:
+      - rabbitmq
+
+  api-pedidos:
+    build:
+      context: .
+      dockerfile: docker/api-pedidos/Dockerfile
+    container_name: 'api-pedidos'
+    working_dir: /app
+    volumes:
+      - ./api-pedidos/vendor/:/app/vendor
+      - ./api-pedidos/:/app
+    command: php -S 0.0.0.0:9191   
+    ports:
+      - 9191:9191
+    depends_on:
+      - rabbitmq

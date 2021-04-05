@@ -4,10 +4,25 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
+const RB_HOST ='rabbitmq';
+const RB_PORT ='5672';
+const RB_USER ='guest';
+const RB_PASS ='guest';
+
 /**
  * Inicia a conexão
  */
-$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+while(1) {
+    try {
+        $connection = new AMQPStreamConnection(RB_HOST, RB_PORT, RB_USER, RB_PASS);
+        break;
+    } catch(\Exception $e) {
+        var_dump($e->getMessage());
+        sleep(2);
+        continue;
+    }
+}
+
 $channel = $connection->channel();
 
 $channel->exchange_declare('pedido_exchange', 'fanout', false, $durable = true, false);

@@ -17,7 +17,7 @@ class Pedido {
         $produto = json_encode($produto);
 
         // rabbit
-        new \App\Rabbitmq;
+        new \App\Rabbitmq($produto);
 
         $this->returnJson($produto);
     }
