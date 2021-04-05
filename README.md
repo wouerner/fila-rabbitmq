@@ -39,6 +39,16 @@ fazer um pedido, e distribuir para 3 serviços diferentes email, distribuidor e 
 Todos os serviços são assincronos.
 
 
+Tecnologias:
+
+* git
+* rabbitmq
+* vim
+* tmux
+* firefox
+* OBS
+* PHP
+* composer
 
 
 
