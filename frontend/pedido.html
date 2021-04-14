@@ -4,7 +4,7 @@
       <label>
         Produto
       </label>
-      <input name="produto">
+      <input name="produto"id="produtoId">
       <button onclick="salvar()" type="button" >salvar</button>
     </form>
     <script>
@@ -17,7 +17,7 @@
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         // Seta paramêtros da requisição e envia a requisição
-        ajax.send("produto=teste@teste.com");
+        ajax.send("produto=" + document.getElementById("produtoId").value);
 
         // Cria um evento para receber o retorno.
           ajax.onreadystatechange = function() {

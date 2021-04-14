@@ -2,9 +2,21 @@
 namespace App;
 
 class Pedido {
-    public function __construct(){
-        $produto = $_POST['produto'];
+    private $produto;
 
+    public function __construct(){
+        $this->produto = $_POST['produto'];
+    }
+
+    private function returnJson($data){
+        header('Content-type: application/json');
+        header('Access-Control-Allow-Origin: *');
+
+        echo $data;
+        die;
+    }
+
+    public function store() {
         // database
         $pdo = new \PDO('sqlite:' . __DIR__ . '/../db/pedidos.db');
 
@@ -20,13 +32,12 @@ class Pedido {
         new \App\Rabbitmq($produto);
 
         $this->returnJson($produto);
+
+        $this->returnJson('atualizado');
     }
 
-    private function returnJson($data){
-        header('Content-type: application/json');
-        header('Access-Control-Allow-Origin: *');
 
-        echo $data;
-        die;
+    public function update() {
+        $this->returnJson('atualizado');
     }
 }
