@@ -26,7 +26,7 @@ final class Rabbitmq
     {
         while (1) {
             try {
-                $this->con = new AMQPStreamConnection(RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_USER, RABBITMQ_PASS);
+                $this->con = new AMQPStreamConnection(self::RABBITMQ_HOST, self::RABBITMQ_PORT, self::RABBITMQ_USER, self::RABBITMQ_PASS);
                 break;
             } catch (\Exception $e) {
                 var_dump($e->getMessage());

@@ -16,7 +16,21 @@ class Pedido {
         die;
     }
 
-    public function store() {
+    public function index()
+    {
+        $pdo = new \PDO('sqlite:' . __DIR__ . '/../db/pedidos.db');
+
+        $sql = "select * from  Pedidos";
+        $stmt = $pdo->prepare($sql);
+        $data = $stmt->execute();
+
+        $pedidos = json_encode($data);
+
+        $this->returnJson($pedidos);
+    }
+
+    public function store()
+    {
         // database
         $pdo = new \PDO('sqlite:' . __DIR__ . '/../db/pedidos.db');
 
@@ -32,10 +46,7 @@ class Pedido {
         new \App\Rabbitmq($produto);
 
         $this->returnJson($produto);
-
-        $this->returnJson('atualizado');
     }
-
 
     public function update() {
         $this->returnJson('atualizado');

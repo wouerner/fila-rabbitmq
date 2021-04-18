@@ -4,12 +4,17 @@ require_once __DIR__ . '/vendor/autoload.php';
 $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
-    case '/store' :
+    case '/':
+        require __DIR__ . '/app/Pedido.php';
+        $pedido = new App\Pedido();
+        $pedido->index();
+        break;
+    case '/store':
         require __DIR__ . '/app/Pedido.php';
         $pedido = new App\Pedido();
         $pedido->store();
         break;
-    case '/update' :
+    case '/update':
         require __DIR__ . '/app/Pedido.php';
         $pedido = new App\Pedido();
         $pedido->update();
