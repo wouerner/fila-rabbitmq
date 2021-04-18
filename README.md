@@ -1,5 +1,7 @@
 # fila-rabbitmq
 
+diagrama: https://lucid.app/lucidchart/invitations/accept/inv_30bacc05-c53b-4da5-a11d-fcfc6491ad01?viewport_loc=-351%2C-39%2C2219%2C1013%2C0_0
+
 Motivos 
 
 * https://www.youtube.com/watch?v=FcF5iufd2P0&t=5s (basico)
