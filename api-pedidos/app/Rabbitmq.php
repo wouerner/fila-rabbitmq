@@ -50,7 +50,7 @@ final class Rabbitmq
             ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]
         );
 
-        foreach (range(0, 1000000) as $i) {
+        foreach (range(0, 100) as $i) {
             $this->channel->basic_publish($msg, 'pedido_exchange');
         }
     }

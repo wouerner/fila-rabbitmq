@@ -43,6 +43,7 @@ services:
     working_dir: /app
     volumes:
       - ./distributor-service/:/app
+      - ./database/:/app/db
     command: php -f receivePedido.php   
     depends_on:
       - rabbitmq
@@ -53,6 +54,7 @@ services:
     working_dir: /app
     volumes:
       - ./payment-service/:/app
+      - ./database/:/app/db
     command: php -f receivePedido.php   
     depends_on:
       - rabbitmq
@@ -63,6 +65,7 @@ services:
     working_dir: /app
     volumes:
       - ./email-service/:/app
+      - ./database/:/app/db
     command: php -f receivePedido.php   
     depends_on:
       - rabbitmq
@@ -86,6 +89,7 @@ services:
     container_name: 'api-pedidos'
     working_dir: /app
     volumes:
+      - ./database/:/app/db
       - ./api-pedidos/vendor/:/app/vendor
       - ./api-pedidos/:/app
     command: php -S 0.0.0.0:9191   

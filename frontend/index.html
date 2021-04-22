@@ -21,13 +21,20 @@
       <h3>
         Status
       </h3>
-      <table>
+      <button onclick="atualizar()">
+        atualizar
+        </button>
+      <table class="table" id="table">
+        <thead>
         <tr>
           <td>id</td>
           <td>distribuidor</td>
           <td>email</td>
           <td>pagamento</td>
         </tr>
+        </thead>
+        <tbody>
+        </tbody>
       </table>
     </div>
     <script>
@@ -55,6 +62,69 @@
               }
           }
       }
+
+      function atualizar(){
+        // Exemplo de requisição POST
+        var ajax = new XMLHttpRequest();
+
+        // Seta tipo de requisição: Post e a URL da API
+        ajax.open("GET", "http://localhost:9191/", true);
+        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        // Seta paramêtros da requisição e envia a requisição
+        ajax.send("produto=" + document.getElementById("produtoId").value);
+
+        // Cria um evento para receber o retorno.
+          ajax.onreadystatechange = function() {
+            
+            // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                
+                var data = ajax.responseText;
+                
+                // Retorno do Ajax
+                console.log(JSON.parse(data));
+                table(JSON.parse(data))
+              }
+          }
+      }
+
+      function table(data){
+        var tableRef = document.getElementById('table');
+        var tbodyRef = tableRef.getElementsByTagName('tbody')[0];
+
+        //console.log(tableRef.rows.length);
+        //console.log(tableRef.rows);
+
+        tableRef.removeChild(tbodyRef);
+
+        tbodyRef = document.createElement("tbody");
+        tableRef.appendChild(tbodyRef);
+
+
+        //for(var i = 0; tableRef.rows.length > 0; i++){
+         // tableRef.deleteRow(i);
+        //}
+        //i = 0;
+
+        data.forEach(function(nome, i ){
+          var newRow = tbodyRef.insertRow();
+          // Insert a cell at the end of the row
+          nome.forEach(function(val,i){
+            var newCell = newRow.insertCell();
+            if (i > 0 && val==1) {
+              newCell.setAttribute('class', 'bg-success');
+            }
+
+            // Append a text node to the cell
+            var newText = document.createTextNode(val);
+            newCell.appendChild(newText);
+
+          })
+
+        })
+      }
+     setInterval(function(){ console.log('atualizando...'); atualizar();}, 7000);
     </script>
   </body>
 </html>

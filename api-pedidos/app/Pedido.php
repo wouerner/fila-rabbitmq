@@ -21,8 +21,17 @@ class Pedido {
         $pdo = new \PDO('sqlite:' . __DIR__ . '/../db/pedidos.db');
 
         $sql = "select * from  Pedidos";
-        $stmt = $pdo->prepare($sql);
-        $data = $stmt->execute();
+        $stmt = $pdo->query($sql);
+
+        $data = [];
+        while ($linha = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            $data[] = [
+                $linha['id'],
+                $linha['email'],
+                $linha['payment'],
+                $linha['distributor']
+            ];
+        }
 
         $pedidos = json_encode($data);
 
@@ -32,7 +41,7 @@ class Pedido {
     public function store()
     {
         // database
-        $pdo = new \PDO('sqlite:' . __DIR__ . '/../db/pedidos.db');
+        $pdo = new \PDO('sqlite:' . ROOT_PATH . '/db/pedidos.db');
 
         $sql = "INSERT INTO Pedidos (produtos) VALUES (?)";
         $stmt = $pdo->prepare($sql);

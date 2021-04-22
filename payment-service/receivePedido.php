@@ -38,6 +38,13 @@ echo ' [*] Esperando pedidos. To exit press CTRL+C', "\n";
  */
 $callback = function($msg) {
   echo date('m/d/Y h:i:s a', time()) . " [x] Validando Pagamento: ", $msg->body, "\n";
+  $body = json_decode($msg->body);
+
+  $pdo = new \PDO('sqlite:/app/db/pedidos.db');
+
+  $sql = "UPDATE Pedidos set payment = 1 where id = ?";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([$body->id]);
 };
 
 /**

@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
+const ROOT_PATH = __DIR__;
+
 $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
