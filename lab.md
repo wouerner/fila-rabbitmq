@@ -11,7 +11,7 @@ https://github.com/wouerner/fila-rabbitmq
 
 ### 1 passo
 
-docker-compose up
+`docker-compose up`
 
 
 ### 2 passo
@@ -30,7 +30,7 @@ teste enviando pedido
 ### 5 passo
 teste sem um serviço
 
-docker-compose up web-app rabbitmq  api-pedidos email-service 
+`docker-compose up web-app rabbitmq  api-pedidos email-service `
 
 ### 6 passo
 
