@@ -44,7 +44,7 @@ Todos os serviços são assincronos.
 Tecnologias:
 
 * git
-* rabbitmq
+* (rabbitmq) [https://www.rabbitmq.com/]
 * vim
 * tmux
 * firefox
